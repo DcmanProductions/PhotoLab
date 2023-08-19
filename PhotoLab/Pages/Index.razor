@@ -1,1 +1,139 @@
 ﻿@page "/"
+@using Chase.FFmpeg.Extra;
+@using Chase.FFmpeg.Info;
+@using System.Reflection;
+@using System.Diagnostics;
+
+<div id="image-view" @onkeyup=HandleKeybinding tabindex="0">
+    <p class="image-title @(ShowTitle?"show":"")">@(Path.GetFileName(FilePath))</p>
+    @if (IsLoading)
+    {
+        <div class="loading"></div>
+    }
+    @if (Info != null)
+    {
+        <i class="info-button" @onclick=@(()=>{IsShowingMoreDetails=!IsShowingMoreDetails;ShowTitle=!ShowTitle;StateHasChanged();})></i>
+
+        @if (CurrentIndex + 1 < Neighbors.Count())
+        {
+            <div class="nav-button btn next" @onclick=@(()=>LoadImage(Neighbors.ElementAt(CurrentIndex+1)))></div>
+        }
+
+        @if (CurrentIndex > 0)
+        {
+            <div class="nav-button btn previous" @onclick=@(()=>LoadImage(Neighbors.ElementAt(CurrentIndex-1)))></div>
+        }
+
+        <div class="info-panel col @(IsShowingMoreDetails?"active":"")">
+            <div id="info-title" class="info-item">@Info.Streams.First().CodecLongName</div>
+            <div id="info-path" class="info-item">Path: <i>@(FilePath)</i></div>
+            <div id="info-size" class="info-item">Size: <i>@(CLMath.CLFileMath.AdjustedFileSize(Info.Size))</i></div>
+            <div id="info-bitrate" class="info-item">Bitrate: <i>@(CLMath.CLFileMath.AdjustedFileSize(Info.BitRate))</i></div>
+            <div id="info-codec-type" class="info-item">Codec Type: <i>@(Info.Streams.First().CodecType)</i></div>
+            @if (!IsSVG)
+            {
+                <div id="info-width" class="info-item">Width: <i>@(Info.Streams.First().Width)px</i></div>
+                <div id="info-height" class="info-item">Height: <i>@(Info.Streams.First().Height)px</i></div>
+                <div id="info-pixel-format" class="info-item">Pixel Format: <i>@(Info.Streams.First().PixelFormat)</i></div>
+                <div id="info-aspect-ratio" class="info-item">Aspect Ratio: <i>@(Info.Streams.First().AspectRatio)</i></div>
+                <div id="info-color-range" class="info-item">Color Range: <i>@(Info.Streams.First().ColorRange)</i></div>
+                <div id="info-profile" class="info-item">Profile: <i>@(Info.Streams.First().Profile)</i></div>
+            }
+        </div>
+    }
+    @if (IsSVG)
+    {
+        @(new MarkupString(Image))
+        <div class="background">
+            @(new MarkupString(Image))
+        </div>
+    }
+    else
+    {
+        <div class="image" style="background-image: url('data:image/png;base64,@Image')"></div>
+
+        <div class="background" style="background-image: url('data:image/png;base64,@Image')"></div>
+    }
+</div>
+
+
+@code {
+    private bool IsSVG { get; set; } = false;
+    private string Image { get; set; }
+    private string FilePath { get; set; }
+    private FFMediaInfo? Info { get; set; } = null;
+    private bool IsShowingMoreDetails { get; set; } = false;
+    private System.Timers.Timer timer { get; set; } = null;
+    private bool ShowTitle { get; set; } = false;
+    private IEnumerable<string> Neighbors { get; set; } = Array.Empty<string>();
+    private int CurrentIndex { get; set; } = 0;
+    private bool IsLoading { get; set; } = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Environment.GetCommandLineArgs().Length > 1)
+        {
+            await LoadImage(Environment.GetCommandLineArgs()[1]);
+            try
+            {
+                Info = new(FilePath);
+            }
+            catch
+            {
+                Info = null;
+            }
+        }
+        await base.OnInitializedAsync();
+    }
+    private async Task LoadImage(string image)
+    {
+        IsLoading = true;
+        StateHasChanged();
+        await Task.Run(() =>
+         {
+             Stopwatch watch = Stopwatch.StartNew();
+             FilePath = image;
+             using FileStream fs = new(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+             if (Path.GetExtension(FilePath) == ".svg")
+             {
+                 IsSVG = true;
+                 using StreamReader reader = new(fs);
+                 Image = reader.ReadToEnd();
+             }
+             else
+             {
+                 IsSVG = false;
+                 using MemoryStream ms = new();
+                 fs.CopyTo(ms);
+                 Image = Convert.ToBase64String(ms.ToArray());
+             }
+
+             Neighbors = Directory.GetParent(FilePath).GetFiles().Where(i => FFImageUtility.HasImageExtension(i.FullName) || Path.GetExtension(i.FullName).Equals(".svg", StringComparison.OrdinalIgnoreCase)).Select(i => i.FullName);
+             CurrentIndex = Neighbors.ToList().IndexOf(FilePath);
+             IsLoading = false;
+             watch.Stop();
+
+             Console.WriteLine($"Loaded Image took: {watch.Elapsed}");
+         });
+        StateHasChanged();
+    }
+    private void HandleKeybinding(KeyboardEventArgs args)
+    {
+        switch (args.Key)
+        {
+            case "ArrowRight":
+                @if (CurrentIndex + 1 < Neighbors.Count())
+                {
+                    LoadImage(Neighbors.ElementAt(CurrentIndex + 1));
+                }
+                break;
+            case "ArrowLeft":
+
+                @if (CurrentIndex > 0)
+                {
+                    LoadImage(Neighbors.ElementAt(CurrentIndex - 1));
+                }
+                break;
+        }
+    }
+}
