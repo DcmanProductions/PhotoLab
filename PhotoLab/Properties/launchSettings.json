@@ -1,8 +1,8 @@
 {
   "profiles": {
-    "Windows Machine": {
-      "commandName": "MsixPackage",
-      "nativeDebugging": false
+    "Windows": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Users\\drew_\\Pictures\\Wallpapers\\Star Wars Fallen Order\\star-wars-jedi-wallpaper-16x9-1.jpg\""
     }
   }
 }
