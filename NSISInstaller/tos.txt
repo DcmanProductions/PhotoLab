@@ -1,0 +1,59 @@
+Terms of Service for PhotoLab
+
+Last Updated: August 19, 2023
+
+1. Acceptance of Terms
+
+Welcome to PhotoLab! These Terms of Service ("Terms") govern your use of the PhotoLab software, including any updates or modifications (collectively referred to as the "Service") provided by LF Interactive ("we," "us," or "our") via the website https://photolab.lfinteractive.net ("Website"). By using PhotoLab, you agree to comply with and be bound by these Terms. If you do not agree to these Terms, please do not use PhotoLab.
+
+2. Use of PhotoLab
+
+2.1. License: LF Interactive grants you a personal, non-exclusive, non-transferable, and revocable license to use PhotoLab for your personal or internal business purposes, subject to these Terms.
+
+2.2. Restrictions: You agree not to:
+   - Reverse engineer, decompile, disassemble, or attempt to derive the source code of PhotoLab.
+   - Modify, adapt, or create derivative works based on PhotoLab.
+   - Remove, alter, or obscure any copyright, trademark, or other proprietary notices.
+   - Use PhotoLab for any illegal or unauthorized purpose.
+
+3. Privacy and Data Collection
+
+By using PhotoLab, you acknowledge and agree to the collection and use of your data in accordance with our Privacy Policy, which can be found at https://photolab.lfinteractive.net/privacy-policy.
+
+4. Third-Party Components
+
+PhotoLab may incorporate third-party components, including but not limited to the use of FFmpeg for probing metadata. Your use of these components is subject to their respective licenses and terms, and LF Interactive disclaims any liability related to such third-party components.
+
+5. Updates and Maintenance
+
+LF Interactive may, from time to time, provide updates, modifications, or maintenance to PhotoLab. You agree that these updates are necessary for the continued functionality and security of PhotoLab and agree to receive such updates automatically.
+
+6. Termination
+
+LF Interactive reserves the right to suspend or terminate your access to PhotoLab at any time, with or without cause, and with or without notice.
+
+7. Disclaimer of Warranty
+
+PHOTOLAB IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.
+
+8. Limitation of Liability
+
+IN NO EVENT SHALL LF INTERACTIVE BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) ARISING OUT OF THE USE, MISUSE, OR INABILITY TO USE PHOTOLAB, EVEN IF LF INTERACTIVE HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+9. Governing Law
+
+These Terms shall be governed by and construed in accordance with the laws of the United States and the State of [Your State], without regard to its conflict of law principles.
+
+10. Changes to Terms
+
+LF Interactive reserves the right to update or modify these Terms at any time without notice. It is your responsibility to review these Terms periodically. Your continued use of PhotoLab after any changes to these Terms constitutes your acceptance of such changes.
+
+11. Contact Information
+
+If you have any questions or concerns about these Terms or PhotoLab, please contact us at [contact@lfinteractive.net](mailto:contact@lfinteractive.net).
+
+By using PhotoLab, you agree to abide by these Terms of Service. If you do not agree to these Terms, please discontinue your use of PhotoLab.
+
+Thank you for choosing PhotoLab!
+
+LF Interactive
